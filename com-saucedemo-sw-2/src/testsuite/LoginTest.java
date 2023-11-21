@@ -35,28 +35,35 @@ public class LoginTest extends BaseTest {
         openBrowser(baseUrl);
     }
 
+    /**
+     * * Enter “standard_user” username
+     * * Enter “secret_sauce” password
+     * * Click on ‘LOGIN’ button
+     * * Verify the text “PRODUCTS”
+     */
     @Test
     public void userShouldLoginSuccessfullyWithValidCredentials() {
-        /**
-         * * Enter “standard_user” username
-         * * Enter “secret_sauce” password
-         * * Click on ‘LOGIN’ button
-         * * Verify the text “PRODUCTS”
-         */
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
-        Assert.assertEquals("Products", "Products");
-        /**
-         * * Enter “standard_user” username
-         * * Enter “secret_sauce” password
-         * * Click on ‘LOGIN’ button
-         * * Verify that six products are displayed on
-         * page
-         */
+        Assert.assertEquals("User should successfully loged in with valid credentials","Products", driver.findElement(By.className("title")).getText());
+    }
+
+    /**
+     * * Enter “standard_user” username
+     * * Enter “secret_sauce” password
+     * * Click on ‘LOGIN’ button
+     * * Verify that six products are displayed on
+     * page
+     */
+    @Test
+    public void verifyThatSixProductsAreDisplayedOnPage(){
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("login-button")).click();
+
         List<WebElement> linksElements = driver.findElements(By.className("inventory_item"));
-        System.out.println("Number of links = " + linksElements.size());
-        Assert.assertEquals("6", "6");
+        Assert.assertEquals("Verify that six products are displayed on page ",6, linksElements.size());
     }
 
     @After
